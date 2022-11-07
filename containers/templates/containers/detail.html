@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}{{ model.name }} container{% endblock %}
+
+{% block content %}
+    <h1>Container detail</h1>
+    <div class="card">
+        <div class="card-body">
+            <div>ID: {{ model.id }}</div>
+            <div>Name: {{ model.name }}</div>
+            <div>IP address: {{ inspect.NetworkSettings.IPAddress }}</div>
+            <div>Status: {{ inspect.State.Status }}</div>
+            <div>Restart count: {{ inspect.RestartCount }}</div>
+            <div>Created: {{ inspect.Created }}</div>
+            <div>Start time: {{ inspect.State.StartedAt }}</div>
+            <hr/>
+            <div>
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-success" href="{% url 'containers:start' model.id %}">
+                        <i class="fa fa-play"></i> Start
+                    </a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'containers:stop' model.id %}">
+                        <i class="fa fa-stop"></i> Stop
+                    </a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'containers:kill' model.id %}">
+                        <i class="fa fa-bomb"></i> Kill
+                    </a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'containers:restart' model.id %}">
+                        <i class="fa fa-sync"></i> Restart
+                    </a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'containers:pause' model.id %}">
+                        <i class="fa fa-pause "></i> Pause
+                    </a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'containers:resume' model.id %}">
+                        <i class="fa fa-play "></i> Resume
+                    </a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'containers:delete' model.id %}">
+                        <i class="fa fa-trash "></i> Remove
+                    </a>
+                </div>
+                <div class="btn-group pull-right">
+                    <a class="btn btn-sm btn-warning" href="{% url 'containers:logs' model.id %}">
+                        <i class="fa fa-file-archive-o"></i> View logs
+                    </a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'containers:index' %}">
+                        <i class="fa fa-list "></i> Back to the list
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Container details
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>IMAGE</th>
+                    <td>{{ model.image }}</td>
+                </tr>
+                <tr>
+                    <th>PORT CONFIGURATION</th>
+                    <td>{{ inspect.NetworkSettings.Ports }}</td>
+                </tr>
+                <tr>
+                    <th>CMD</th>
+                    <td>{{ inspect.Config.Cmd }}</td>
+                </tr>
+                <tr>
+                    <th>ENTRYPOINT</th>
+                    <td>{{ inspect.Config.Entrypoint }}</td>
+                </tr>
+                <tr>
+                    <th>ENV</th>
+                    <td>{% with items=inspect.Config.Env %} {% include '_ol.html' %}{% endwith %}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Volumes
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Host/volume</th>
+                    <th>Path in container</th>
+                </tr>
+                {% for mount in inspect.Mounts %}
+                    <tr>
+                        <th>{{ mount.Source }}</th>
+                        <td>{{ mount.Destination }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Connected networks
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Network</th>
+                    <th>IP Address</th>
+                    <th>Gateway</th>
+                    <th>MAC Address</th>
+                </tr>
+                {% for network in inspect.NetworkSettings.Networks %}
+                    <tr>
+                        <th></th>
+                        <td>{{ network.IPAddress }}</td>
+                        <th>{{ network.Gateway }}</th>
+                        <th>{{ network.MacAddress }}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Inspection
+        </div>
+        <div class="card-body">
+            <pre>{{ json_attr | safe }}</pre>
+        </div>
+    </div>
+    <br/><br/><br/><br/>
+{% endblock %}
+
+{% block js %}
+    <script>
+        let attrs = {{ json_attr | safe }};
+        console.log(attrs);
+    </script>
+{% endblock %}

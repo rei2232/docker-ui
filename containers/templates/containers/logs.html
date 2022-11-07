@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Container {% endblock %}
+
+{% block content %}
+    <h1>Logs of container</h1>
+    <div class="card">
+        <div class="card-header">
+            <form method="get" class="form">
+                <label>Lines:</label> <input name="lines" value="{{ lines }}" placeholder="all | 50"/>
+                <input class="btn btn-sm btn-success" type="submit" value="View">
+                <a class="btn btn-sm btn-primary pull-right" href="{% url 'containers:detail' id %}">
+                    <i class="fa fa-step-backward"></i> Back to details</a>
+            </form>
+        </div>
+        <div class="card-body">
+            <pre >{{ log | safe }}</pre>
+        </div>
+    </div>
+    <br/>
+    <br/>
+{% endblock %}

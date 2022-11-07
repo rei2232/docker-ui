@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Images{% endblock %}
+
+{% block content %}
+    <h1>Pull image</h1>
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'images:create' %}" method="post">
+                {% include 'images/_form.html' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

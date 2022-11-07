@@ -1,0 +1,24 @@
+{% csrf_token %}
+{{ form.non_field_errors }}
+<div class="fieldWrapper">
+    {{ form.name.errors }}
+    <label for="{{ form.name.id_for_label }}">Name:</label>
+    {{ form.name }}{{ form.name.help_text }}
+</div>
+<div class="fieldWrapper">
+    {{ form.image.errors }}
+    <label for="{{ form.image.id_for_label }}">Image:</label>
+    {{ form.image }}{{ form.image.help_text }}
+</div>
+<div class="fieldWrapper">
+    {{ form.ports.errors }}
+    <label for="{{ form.ports.id_for_label }}">Ports:</label>
+    {{ form.ports }}{{ form.ports.help_text }}
+</div>
+<div class="fieldWrapper">
+    {{ form.envs.errors }}
+    <label for="{{ form.envs.id_for_label }}">Env</label>
+    {{ form.envs }}{{ form.envs.help_text }}
+</div>
+<input class="btn btn-success btn-sm" type="submit" value="Create">
+<a class="btn btn-primary btn-sm" href="{% url 'containers:index' %}">Cancel</a>

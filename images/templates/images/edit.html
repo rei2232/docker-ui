@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Images{% endblock %}
+
+{% block content %}
+    <h1>Edit image</h1>
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'images:update' model.id %}" method="post" class="form">
+                {% include 'images/_form.html' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

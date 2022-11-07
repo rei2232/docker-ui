@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ model.name }} Registry{% endblock %}
+
+{% block content %}
+    <h1>Registry detail</h1>
+    <div class="card">
+        <div class="card-body">
+            <div>Name: {{ model.name }}</div>
+            <div>Registry Url: {{ model.instance_url }}</div>
+            <div>Project path: {{ model.project_path }}</div>
+            <div>Username: {{ model.username }}</div>
+            <div>Authenticate: {{ model.authentication }}</div>
+            <div>Created at: {{ model.pub_date }}</div>
+            <hr/>
+            <div>
+                <a class="btn btn-primary btn-sm" href="{% url 'registry:update' model.id %}">Update</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'registry:delete' model.id %}">Delete</a>
+                <a class="btn btn-sm" href="{% url 'registry:index' %}">List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

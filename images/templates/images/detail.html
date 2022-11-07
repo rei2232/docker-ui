@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ model.name }} Images{% endblock %}
+
+{% block content %}
+    <h1>Image detail</h1>
+    <div class="card">
+        <div class="card-body">
+            <div>ID: {{ model.image_id }}</div>
+            <div>Name: {{ model.repository }}</div>
+            <div>Name: {{ model.repository }}</div>
+            <div>Tags: {{ model.tags }}</div>
+            <div>Size: {{ inspect.Size | filesizeformat }}</div>
+            <div>OS: {{ inspect.Os }} {{ inspect.Architecture }}</div>
+            <hr/>
+            <div>
+                <a class="btn btn-primary btn-sm" href="{% url 'images:update' model.id %}">Update</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'images:delete' model.id %}">Delete</a>
+                <a class="btn btn-sm" href="{% url 'images:index' %}">List</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+        Dockerfile details
+        </div>
+        <div class="card-body">
+            <table>
+                <tr><th>CMD</th><td>{{ inspect.Config.Cmd }}</td></tr>
+                <tr><th>WORKDIR</th><td>{{ inspect.Config.WorkingDir }}</td></tr>
+                <tr><th>ENTRYPOINT</th><td>{{ inspect.Config.Entrypoint }}</td></tr>
+                <tr><th>ENV</th><td>{% with items=inspect.Config.Env %} {% include '_ol.html' %}{% endwith %}</td></tr>
+                <tr><th>VOLUMES</th><td>{{ inspect.Config.Volumes }}</td></tr>
+                <tr><th>REPO DIGESTS</th><td>{% with items=inspect.RepoDigests %} {% include '_ol.html' %}{% endwith %}</td></tr>
+                <tr><th>CREATED</th><td>{{ inspect.Created }}</td></tr>
+            </table>
+        </div>
+    </div>
+    <br/><br/><br/><br/>
+{% endblock %}

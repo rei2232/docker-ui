@@ -1,0 +1,11 @@
+{% if form.password.errors %}
+    <ol>
+        {% for error in form.password.errors %}
+            <li><strong>{{ error|escape }}</strong></li>
+        {% endfor %}
+    </ol>
+{% endif %}
+{% csrf_token %}
+{{ form.as_p }}
+<input class="btn btn-success btn-sm" type="submit" value="Save">
+<a class="btn btn-primary btn-sm" href="{% url 'registry:index' %}">Cancel</a>
