@@ -25,12 +25,12 @@ def create(request):
     if request.method == 'POST':
         form = ContainerForm(request.POST)
         if form.is_valid():
-            envs = json.loads(form.cleaned_data['envs'])
+            # envs = json.loads(form.cleaned_data['envs'])
             ports = json.loads(form.cleaned_data['ports'])
 
             docker_container = docker_client.container_create(form.cleaned_data['name'],
-                                                              form.cleaned_data['image'].repository,
-                                                              envs,
+                                                              form.cleaned_data['image'].tags[2:-2],
+                                                            #   envs,
                                                               ports)
 
             return redirect('containers:detail', docker_container.id)

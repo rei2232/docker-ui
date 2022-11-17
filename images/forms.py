@@ -1,15 +1,17 @@
 from django import forms
 from .models import Image
 from registry.models import Registry
-
+from django.forms import TextInput, ModelChoiceField, Select, IntegerField, NumberInput
 
 class ImageForm(forms.ModelForm):
-    registry = forms.ModelChoiceField(queryset=Registry.objects.all())
+    registry = ModelChoiceField(queryset=Registry.objects.all(), widget=Select(attrs={'class': 'form-control'}))
+    tag = IntegerField(label='Tag', required=True, widget=NumberInput(attrs={'class': 'form-control'})) 
 
     class Meta:
         model = Image
         fields = ['repository']
-
-    def clean_repository(self):
-        data = str(Registry.objects.get(pk=self.data['registry'])) + self.data['repository']
-        return data.lower()
+        widgets = {
+            'repository': TextInput(attrs={
+               'class': 'form-control'
+            })
+        }

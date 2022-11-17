@@ -5,7 +5,9 @@ from .forms import RegistryForm
 from django import forms
 import docker_client
 from django.contrib import messages
+import logging
 
+logger = logging.getLogger(__name__)
 
 def index(request):
     models = Registry.objects.order_by('-pub_date')

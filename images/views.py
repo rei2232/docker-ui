@@ -18,7 +18,7 @@ def index(request):
 
 def detail(request, id):
     model = get_object_or_404(Image, pk=id)
-    inspect = docker_client.image_inspect(model.repository)
+    inspect = docker_client.image_inspect(model.tags[2:-2])
     return render(request, 'images/detail.html', {'model': model, 'inspect': inspect})
 
 
@@ -26,7 +26,8 @@ def create(request):
     if request.method == 'POST':
         form = ImageForm(request.POST)
         if form.is_valid():
-            docker_image = docker_client.image_pull(form.cleaned_data['repository'])
+            logger.info(form.cleaned_data['repository'] + str(form.cleaned_data['tag']))
+            docker_image = docker_client.image_pull(form.cleaned_data['repository'], str(form.cleaned_data['tag']))
             model = Image()
             model.repository = form.cleaned_data['repository']
             model.image_id = docker_image.id

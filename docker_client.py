@@ -16,10 +16,10 @@ def login(registry, username, password):
         raise e
 
 
-def image_pull(image_url):
-    logger.info("[Pulling image] " + image_url)
+def image_pull(repo, tag):
+    logger.info("[Pulling image] " + repo)
     try:
-        image = client.images.pull(image_url)
+        image = client.images.pull(repository=repo, tag=tag)
         logger.info("[Pulled image] " + image.id)
         return image
     except Exception as e:
@@ -61,7 +61,7 @@ def container_create(name, image_url, env={}, ports={}):
     try:
         container = client.containers.create(image=image_url,
                                              name=name,
-                                             environment=env,
+                                            #  environment=env,
                                              ports=ports,
                                              labels={"purpose": "dev"})
         logger.info("[Container created]: name: %s, image:%s, id: %s", name, image_url, container.id)

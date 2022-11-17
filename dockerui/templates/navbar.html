@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{% url 'containers:index' %}">Containers</a>
-    <a class="navbar-brand" href="{% url 'images:index' %}">Images</a>
-    <a class="navbar-brand" href="{% url 'registry:index' %}">Registry</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary d-flex justify-content-center" id="menubar">
+    <div class="container-fluid d-flex justify-content-start">
+        <a class="navbar-brand mb-0 h1" href="{% url 'containers:index' %}">Containers</a>
+        <a class="navbar-brand mb-0 h1" href="{% url 'images:index' %}">Images</a>
+        <a class="navbar-brand mb-0 h1" href="{% url 'registry:index' %}">Registry</a>
+    </div>
 </nav>
