@@ -1,36 +1,12 @@
 # docker-ui
 Web interface for Docker and Docker Remote API
-Project Structure:
+## Requirements
+> python, pip, docker
+## Installation
+``` pip install django docker ```
 
-├── Containers
-|   ├── templates
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── forms.py
-│   ├── tests.py
-│   ├── urls.py
-│   ├── views.py
-│
+```  python manage.py migrate ``` 
 
+## Run
+```  python manage.py runserver ``` 
 
-
-
-├── middlewares
-│   └── auth.js // Check if user has a token
-├── services
-│   ├── user.js
-│   └── post.js
-├── tests
-│   ├── db.js
-│   ├── auth.test.js
-│   └── post.test.js
-├── app.js
-├── server.js
-├── package.json
-├── Dockerfile
-├── docker-compose.yaml
-├── README.md
-└── ...
-```
