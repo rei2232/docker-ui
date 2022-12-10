@@ -3,6 +3,7 @@ from .models import Container
 from .forms import ContainerForm
 from registry.models import Registry
 from django import forms
+from django.contrib.auth.decorators import login_required
 import docker_client
 import logging
 import json
@@ -10,6 +11,7 @@ import json
 logger = logging.getLogger(__name__)
 
 
+@login_required
 def index(request):
     models = docker_client.container_list()
     return render(request, 'containers/index.html', {'models': models})

@@ -6,10 +6,12 @@ from registry.models import Registry
 from django import forms
 import docker_client
 import logging
+from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger(__name__)
 
 
+@login_required
 def index(request):
     models = Image.objects.order_by('-pub_date')
     # docker_images = docker_client.image_list()

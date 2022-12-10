@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Containers{% endblock %}
+
+{% block content %}
+<div id="content" class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username"  placeholder="Enter username">
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+</div>
+{% endblock %}

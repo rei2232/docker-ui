@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'registry.apps.DockerConfig',
     'images.apps.ImagesConfig',
     'containers.apps.ContainersConfig',
+    'login.apps.LoginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
