@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from http.client import HTTPResponse
+from django.http import HttpResponse
 
 def error_404_view(request, exception):
-    return render(request, 'login/index.html', {})
+    return HTTPResponse('Error handler content', status=404)

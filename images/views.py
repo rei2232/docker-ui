@@ -17,13 +17,13 @@ def index(request):
     # docker_images = docker_client.image_list()
     return render(request, 'images/index.html', {'models': models})
 
-
+@login_required
 def detail(request, id):
     model = get_object_or_404(Image, pk=id)
     inspect = docker_client.image_inspect(model.tags[2:-2])
     return render(request, 'images/detail.html', {'model': model, 'inspect': inspect})
 
-
+@login_required
 def create(request):
     if request.method == 'POST':
         form = ImageForm(request.POST)
@@ -41,7 +41,7 @@ def create(request):
         form = ImageForm()
     return render(request, 'images/create.html', {'form': form})
 
-
+@login_required
 def update(request, id):
     model = get_object_or_404(Image, pk=id)
     form = ImageForm(request.POST or None, instance=model)
@@ -53,7 +53,7 @@ def update(request, id):
             form = ImageForm(model)
     return render(request, 'images/edit.html', {'form': form, 'model': model})
 
-
+@login_required
 def delete(request, id):
     model = get_object_or_404(Image, pk=id)
     docker_client.image_remove(model.repository)

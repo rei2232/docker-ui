@@ -16,13 +16,13 @@ def index(request):
     models = docker_client.container_list()
     return render(request, 'containers/index.html', {'models': models})
 
-
+@login_required
 def detail(request, id):
     model = docker_client.container_get(id)
     json_attr = json.dumps(model.attrs)
     return render(request, 'containers/detail.html', {'model': model, 'inspect': model.attrs, 'json_attr': json_attr})
 
-
+@login_required
 def create(request):
     if request.method == 'POST':
         form = ContainerForm(request.POST)
@@ -40,42 +40,42 @@ def create(request):
         form = ContainerForm()
     return render(request, 'containers/create.html', {'form': form})
 
-
+@login_required
 def delete(request, id):
     docker_client.container_remove(id)
     return redirect('containers:index')
 
-
+@login_required
 def start(request, id):
     docker_client.container_start(id)
     return redirect('containers:detail', id)
 
-
+@login_required
 def stop(request, id):
     docker_client.container_stop(id)
     return redirect('containers:detail', id)
 
-
+@login_required
 def kill(request, id):
     docker_client.container_kill(id)
     return redirect('containers:detail', id)
 
-
+@login_required
 def restart(request, id):
     docker_client.container_restart(id)
     return redirect('containers:detail', id)
 
-
+@login_required
 def pause(request, id):
     docker_client.container_pause(id)
     return redirect('containers:detail', id)
 
-
+@login_required
 def resume(request, id):
     docker_client.container_resume(id)
     return redirect('containers:detail', id)
 
-
+@login_required
 def logfollow(request, id):
     lines = request.GET.get("lines", "100")
 
